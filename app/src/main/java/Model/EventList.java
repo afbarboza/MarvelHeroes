@@ -8,6 +8,12 @@ public class EventList {
     private String collectionURI;
     private List<EventSummary> items;
 
+    /**
+     * @param available: The number of total available events in this list.
+     * @param returned:  The number of events returned in this collection
+     * @param collectionURI: The path to the full list of events in this collection.
+     * @param items: The list of returned events in this collection.
+     */
     public EventList(int available, int returned, String collectionURI, List<EventSummary> items) {
         this.available = available;
         this.returned = returned;

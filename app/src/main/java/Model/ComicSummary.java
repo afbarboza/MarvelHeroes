@@ -4,6 +4,10 @@ public class ComicSummary {
     private String name;
     private String resourceURI;
 
+    /**
+     * @param name: The canonical name of the comic.
+     * @param resourceURI: The path to the individual comic resource.,
+     */
     public ComicSummary(String name, String resourceURI) {
         this.name = name;
         this.resourceURI = resourceURI;

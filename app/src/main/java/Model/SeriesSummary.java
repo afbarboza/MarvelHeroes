@@ -4,10 +4,15 @@ public class SeriesSummary {
     private String name;
     private String resourceURI;
 
+    /**
+     * @param name: The path to the individual series resource
+     * @param resourceURI: The canonical name of the series.
+     */
     public SeriesSummary(String name, String resourceURI) {
         this.name = name;
         this.resourceURI = resourceURI;
     }
+
 
     public String getName() {
         return name;

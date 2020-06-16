@@ -4,6 +4,10 @@ public class EventSummary {
     private String name;
     private String resourceURI;
 
+    /**
+     * @param name: The path to the individual event resource.
+     * @param resourceURI: The name of the event.
+     */
     public EventSummary(String name, String resourceURI) {
         this.name = name;
         this.resourceURI = resourceURI;

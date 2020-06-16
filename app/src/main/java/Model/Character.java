@@ -16,6 +16,19 @@ public class Character {
     private EventList events;
     private SeriesList series;
 
+    /**
+     * @param id: The unique ID of the character resource.,
+     * @param name: The name of the character.,
+     * @param description: A short bio or description of the character.,
+     * @param modified:  The date the resource was most recently modified.,
+     * @param resourceURI:  The canonical URL identifier for this resource.,
+     * @param urls: A set of public web site URLs for the resource.,
+     * @param thumbnail:  The representative image for this character.,
+     * @param comics: A resource list containing comics which feature this character.,
+     * @param stories: A resource list of stories in which this character appears.,
+     * @param events: A resource list of events in which this character appears.,
+     * @param series: A resource list of series in which this character appears.
+     */
     public Character(int id, String name, String description, Date modified, String resourceURI,
                      List<Url> urls, Image thumbnail, ComicList comics, StoryList stories,
                      EventList events, SeriesList series) {

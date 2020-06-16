@@ -8,6 +8,12 @@ public class ComicList {
     private String collectionURI;
     private List<ComicSummary> items;
 
+    /**
+     * @param available: The number of total available issues in this list.
+     * @param returned: The number of issues returned in this collection
+     * @param collectionURI: The path to the full list of issues in this collection.,
+     * @param items:  The list of returned issues in this collection.
+     */
     public ComicList(int available, int returned, String collectionURI, List<ComicSummary> items) {
         this.available = available;
         this.returned = returned;

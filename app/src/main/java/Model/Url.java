@@ -4,6 +4,10 @@ public class Url {
     private String type;
     private String url;
 
+    /**
+     * @param type: A text identifier for the URL.,
+     * @param url:  A full URL (including scheme, domain, and path).
+     */
     public Url(String type, String url) {
         this.type = type;
         this.url = url;

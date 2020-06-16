@@ -5,6 +5,11 @@ public class StorySummary {
     private String type;
     private String resourceURI;
 
+    /**
+     * @param name: The canonical name of the story
+     * @param type: The type of the story (interior or cover).
+     * @param resourceURI: The path to the individual story resource.,
+     */
     public StorySummary(String name, String type, String resourceURI) {
         this.name = name;
         this.type = type;

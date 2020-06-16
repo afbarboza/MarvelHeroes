@@ -8,6 +8,12 @@ public class SeriesList {
     private String collectionURI;
     private List<SeriesSummary> items;
 
+    /**
+     * @param available: The number of total available series in this list.
+     * @param returned:  The number of series returned in this collection (up to 20)
+     * @param collectionURI: The path to the full list of series in this collection.
+     * @param items: The list of returned series in this collection.
+     */
     public SeriesList(int available, int returned, String collectionURI, List<SeriesSummary> items) {
         this.available = available;
         this.returned = returned;
