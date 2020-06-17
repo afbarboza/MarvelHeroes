@@ -8,6 +8,7 @@ import android.util.Log;
 import java.io.IOException;
 import java.util.List;
 
+import Controller.RequestInterceptor;
 import Controller.RetrofitClient;
 import Model.Character;
 import Model.CharacterDataContainer;
@@ -38,28 +39,9 @@ public class MainActivity extends AppCompatActivity {
         initRetrofit();
     }
 
-    private class MyInterceptor implements Interceptor {
-        @Override
-        public Response intercept(Chain chain) throws IOException {
-            Request request = chain.request();
-
-            HttpUrl url = request.url().newBuilder()
-                    .addQueryParameter(Constants.API_PUBLIC_KEY, Constants.API_PUBLIC_KEY_VALUE)
-                    .addQueryParameter(Constants.API_TIMESTAMP, Constants.API_TIMESTAMP_VALUE)
-                    .addQueryParameter(Constants.API_HASH, Constants.API_HASH_VALUE)
-                    .addQueryParameter(Constants.API_SEARCH_CRITERIA_SERIES, Constants.API_SEARCH_CRITERIA_SERIES_VALUE)
-                    .addQueryParameter(Constants.API_SEARCH_CRITERIA_ORDER_BY, Constants.API_SEARCH_CRITERIA_ORDER_BY_VALUE)
-
-                    .build();
-
-            request = request.newBuilder().url(url).build();
-            return chain.proceed(request);
-        }
-    }
-
     private void initRetrofit() {
         /* init interceptor for REST requests */
-        Interceptor i = new MyInterceptor();
+        Interceptor i = new RequestInterceptor();
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .addInterceptor(i)
                 .build();
