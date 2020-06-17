@@ -7,24 +7,20 @@ import android.util.Log;
 
 import java.util.List;
 
-import Controller.RequestInterceptor;
-import Controller.RetrofitAPI;
+import Controller.MarvelClient;
+import Controller.MarvelEndpointAPI;
 import Model.Character;
 import Model.CharacterDataContainer;
 import Model.CharacterDataWrapper;
-import Utils.Constants;
-import okhttp3.Interceptor;
-import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
 
     private Retrofit retrofit;
-    private RetrofitAPI retrofitAPI;
+    private MarvelEndpointAPI retrofitAPI;
     private Call<CharacterDataWrapper> getAllCharacters;
 
     @Override
@@ -36,20 +32,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initRetrofit() {
-        /* init interceptor for REST requests */
-        Interceptor i = new RequestInterceptor();
-        OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                .addInterceptor(i)
-                .build();
-
-        this.retrofit = new Retrofit.Builder()
-                .baseUrl(Constants.API_BASE_URL_VALUE)
-                .addConverterFactory(GsonConverterFactory.create())
-                .client(okHttpClient)
-                .build();
-        this.retrofitAPI = this.retrofit.create(RetrofitAPI.class);
-
-        this.getAllCharacters = retrofitAPI.getAllCharacters();
+        this.getAllCharacters = MarvelClient.getMarvelEndpointAPI().getAllCharacters();
         this.getAllCharacters.enqueue(new Callback<CharacterDataWrapper>() {
             @Override
             public void onResponse(Call<CharacterDataWrapper> call, retrofit2.Response<CharacterDataWrapper> response) {
