@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.util.Log;
 
 import java.io.IOException;
-import java.net.HttpURLConnection;
 import java.util.List;
 
 import Controller.RetrofitClient;
@@ -45,9 +44,12 @@ public class MainActivity extends AppCompatActivity {
             Request request = chain.request();
 
             HttpUrl url = request.url().newBuilder()
-                    .addQueryParameter("apikey", Constants.API_PUBLIC_KEY)
-                    .addQueryParameter("ts", Constants.API_TIMESTAMP)
-                    .addQueryParameter("hash", Constants.API_HASH)
+                    .addQueryParameter(Constants.API_PUBLIC_KEY, Constants.API_PUBLIC_KEY_VALUE)
+                    .addQueryParameter(Constants.API_TIMESTAMP, Constants.API_TIMESTAMP_VALUE)
+                    .addQueryParameter(Constants.API_HASH, Constants.API_HASH_VALUE)
+                    .addQueryParameter(Constants.API_SEARCH_CRITERIA_SERIES, Constants.API_SEARCH_CRITERIA_SERIES_VALUE)
+                    .addQueryParameter(Constants.API_SEARCH_CRITERIA_ORDER_BY, Constants.API_SEARCH_CRITERIA_ORDER_BY_VALUE)
+
                     .build();
 
             request = request.newBuilder().url(url).build();
@@ -63,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
                 .build();
 
         this.retrofit = new Retrofit.Builder()
-                .baseUrl(Constants.API_BASE_URL)
+                .baseUrl(Constants.API_BASE_URL_VALUE)
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(okHttpClient)
                 .build();
