@@ -5,7 +5,7 @@ import java.util.List;
 public class StoryList {
     private int available;
     private int returned;
-    private int collectionURI;
+    private String collectionURI;
     private List<StorySummary> items;
 
     /**
@@ -14,7 +14,7 @@ public class StoryList {
      * @param collectionURI: The path to the full list of stories in this collection.,
      * @param items:  The list of returned stories in this collection.
      */
-    public StoryList(int available, int returned, int collectionURI, List<StorySummary> items) {
+    public StoryList(int available, int returned, String collectionURI, List<StorySummary> items) {
         this.available = available;
         this.returned = returned;
         this.collectionURI = collectionURI;
@@ -37,11 +37,11 @@ public class StoryList {
         this.returned = returned;
     }
 
-    public int getCollectionURI() {
+    public String getCollectionURI() {
         return collectionURI;
     }
 
-    public void setCollectionURI(int collectionURI) {
+    public void setCollectionURI(String collectionURI) {
         this.collectionURI = collectionURI;
     }
 
