@@ -1,4 +1,4 @@
-package Controller;
+package Networking;
 
 import Model.CharacterDataWrapper;
 import retrofit2.Call;

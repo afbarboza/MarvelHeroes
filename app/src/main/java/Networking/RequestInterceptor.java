@@ -1,4 +1,4 @@
-package Controller;
+package Networking;
 
 import java.io.IOException;
 

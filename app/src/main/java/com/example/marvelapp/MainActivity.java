@@ -7,8 +7,8 @@ import android.util.Log;
 
 import java.util.List;
 
-import Controller.MarvelClient;
-import Controller.MarvelEndpointAPI;
+import Networking.MarvelClient;
+import Networking.MarvelEndpointAPI;
 import Model.Character;
 import Model.CharacterDataContainer;
 import Model.CharacterDataWrapper;
@@ -18,9 +18,7 @@ import retrofit2.Retrofit;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
-
-    private Retrofit retrofit;
-    private MarvelEndpointAPI retrofitAPI;
+    
     private Call<CharacterDataWrapper> getAllCharacters;
 
     @Override

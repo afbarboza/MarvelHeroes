@@ -1,4 +1,4 @@
-package Controller;
+package Networking;
 
 import Utils.Constants;
 import okhttp3.Interceptor;
