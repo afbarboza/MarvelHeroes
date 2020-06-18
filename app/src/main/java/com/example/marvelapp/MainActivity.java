@@ -4,23 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.animation.ObjectAnimator;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.TextView;
-
-import java.util.List;
 
 import Controller.CallbackCharacterDataWrapper;
 import Networking.MarvelClient;
-import Networking.MarvelEndpointAPI;
-import Model.Character;
-import Model.CharacterDataContainer;
 import Model.CharacterDataWrapper;
 import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Retrofit;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
@@ -38,12 +29,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        initViews();
+        animateSplashScreen();
     }
 
-    private void initViews() {
+    private void animateSplashScreen() {
         this.txtAppName = findViewById(R.id.txtAppName);
-
 
         float screenWidth = (1.0f * this.getResources().getDisplayMetrics().widthPixels);
         float textWidth = (float) (1.0f * this.txtAppName.getWidth());
@@ -52,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         ObjectAnimator animator = ObjectAnimator.ofFloat(this.txtAppName, "translationX", middleCoordinate);
         animator.setDuration(1000);
         animator.start();
-        
+
         Animation animation = new AlphaAnimation(0.0f, 1.0f);
         animation.setDuration(2000);
         this.txtAppName.startAnimation(animation);
