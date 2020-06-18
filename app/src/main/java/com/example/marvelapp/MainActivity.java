@@ -32,6 +32,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void initRetrofit() {
         this.getAllCharacters = MarvelClient.getMarvelEndpointAPI().getAllCharacters();
-        this.getAllCharacters.enqueue(new CallbackCharacterDataWrapper());
+        this.getAllCharacters.enqueue(new CallbackCharacterDataWrapper(this));
     }
 }

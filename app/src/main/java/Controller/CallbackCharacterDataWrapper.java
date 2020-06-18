@@ -1,5 +1,7 @@
 package Controller;
 
+import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 
 import java.util.List;
@@ -12,7 +14,12 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class CallbackCharacterDataWrapper implements Callback<CharacterDataWrapper> {
+    private Context context;
     private static final String TAG = "CallbackCharacterDataWr";
+
+    public CallbackCharacterDataWrapper(Context context) {
+        this.context = context;
+    }
 
     @Override
     public void onResponse(Call<CharacterDataWrapper> call, Response<CharacterDataWrapper> response) {
