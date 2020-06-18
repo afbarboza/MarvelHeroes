@@ -5,6 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.animation.ObjectAnimator;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
 import java.util.List;
@@ -47,8 +50,12 @@ public class MainActivity extends AppCompatActivity {
         float middleCoordinate = (0.5f * (screenWidth - textWidth)) - (0.25f * screenWidth);
 
         ObjectAnimator animator = ObjectAnimator.ofFloat(this.txtAppName, "translationX", middleCoordinate);
-        animator.setDuration(250);
+        animator.setDuration(1000);
         animator.start();
+        
+        Animation animation = new AlphaAnimation(0.0f, 1.0f);
+        animation.setDuration(2000);
+        this.txtAppName.startAnimation(animation);
     }
 
     private void initRetrofit() {
