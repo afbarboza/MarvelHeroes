@@ -8,4 +8,17 @@
     tools:context=".MainActivity"
     android:background="@drawable/marvel_splash_screen">
 
+    <TextView
+        android:id="@+id/txtAppName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:textColor="#ffffff"
+        android:textSize="54sp"
+        android:text="Marvel App"
+        android:fontFamily="@font/marvel_title"
+        >
+
+    </TextView>
+
 </RelativeLayout>
