@@ -13,12 +13,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
         android:textColor="#ffffff"
         android:textSize="54sp"
         android:text="Marvel App"
-        android:fontFamily="@font/marvel_title"
-        >
-
+        android:fontFamily="@font/marvel_title">
     </TextView>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtAppName"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100sp"
+        android:indeterminate="true"
+        android:animationResolution="100"
+        android:indeterminateDrawable="@drawable/rotate_loader"
+        />
 
 </RelativeLayout>

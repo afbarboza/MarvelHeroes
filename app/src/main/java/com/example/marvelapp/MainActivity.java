@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        this.txtAppName = findViewById(R.id.txtAppName);
         initRetrofit();
     }
 
@@ -33,8 +34,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void animateSplashScreen() {
-        this.txtAppName = findViewById(R.id.txtAppName);
-
         float screenWidth = (1.0f * this.getResources().getDisplayMetrics().widthPixels);
         float textWidth = (float) (1.0f * this.txtAppName.getWidth());
         float middleCoordinate = (0.5f * (screenWidth - textWidth)) - (0.25f * screenWidth);
@@ -47,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
         animation.setDuration(2000);
         this.txtAppName.startAnimation(animation);
     }
+
+
 
     private void initRetrofit() {
         this.getAllCharacters = MarvelClient.getMarvelEndpointAPI().getAllCharacters();
