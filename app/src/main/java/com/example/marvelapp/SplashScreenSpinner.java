@@ -3,12 +3,10 @@ package com.example.marvelapp;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.ProgressBar;
-import android.widget.Spinner;
 
 import java.lang.ref.WeakReference;
 
@@ -57,9 +55,7 @@ public class SplashScreenSpinner extends AsyncTask<Void, Void, Void> {
 
     private class SpinnerAnimationListener implements Animation.AnimationListener {
         @Override
-        public void onAnimationStart(Animation animation) {
-
-        }
+        public void onAnimationStart(Animation animation) { }
 
         @Override
         public void onAnimationEnd(Animation animation) {
@@ -69,9 +65,7 @@ public class SplashScreenSpinner extends AsyncTask<Void, Void, Void> {
         }
 
         @Override
-        public void onAnimationRepeat(Animation animation) {
-
-        }
+        public void onAnimationRepeat(Animation animation) { }
     }
 
 }
