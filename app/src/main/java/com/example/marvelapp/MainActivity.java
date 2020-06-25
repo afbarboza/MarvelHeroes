@@ -7,10 +7,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.ProgressBar;
@@ -28,21 +25,20 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView txtAppName;
     private ProgressBar loadingProgressBar;
-    private ProgressBarThread progressBarThread;
-    private boolean isRequestFinished = false;
-    private BroadcastReceiver requestFinishedEventReceiver;
-    private Context context;
+    private SplashScreenSpinner progressBarThread;
 
     private Call<CharacterDataWrapper> getAllCharacters;
+
+    private boolean isRequestFinished = false;
+    private boolean isProgressBarFinished = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        this.txtAppName = findViewById(R.id.txtAppName);
-        this.loadingProgressBar = findViewById(R.id.progressBar);
+        initViews();
         initRetrofit();
-        registerBroadcast();
+        registerEventBroadcastsReceiver();
     }
 
     @Override
@@ -61,6 +57,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void initViews() {
+        this.txtAppName = findViewById(R.id.txtAppName);
+        this.loadingProgressBar = findViewById(R.id.progressBar);
+    }
+
     private void animateSplashScreen() {
         float screenWidth = (1.0f * this.getResources().getDisplayMetrics().widthPixels);
         float textWidth = (float) (1.0f * this.txtAppName.getWidth());
@@ -74,8 +75,7 @@ public class MainActivity extends AppCompatActivity {
         animation.setDuration(2000);
         this.txtAppName.startAnimation(animation);
 
-        progressBarThread = new ProgressBarThread();
-        progressBarThread.execute();
+        progressBarThread = new SplashScreenSpinner(this, loadingProgressBar);
     }
 
     private void initRetrofit() {
@@ -83,56 +83,30 @@ public class MainActivity extends AppCompatActivity {
         this.getAllCharacters.enqueue(new CallbackCharacterDataWrapper(getBaseContext()));
     }
 
-    private class ProgressBarThread extends AsyncTask<Void, Void, Void> {
-
-        private static final String TAG = "ProgressBarThread";
-        @Override
-        protected Void doInBackground(Void... voids) {
-            try {
-                Thread.sleep(1000);
-            } catch (Exception e) {
-                Log.d(TAG, "doInBackground: " + e.getMessage());
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            Animation animation = new AlphaAnimation(0.0f, 1.0f);
-            animation.setDuration(500);
-            loadingProgressBar.setAnimation(animation);
-            loadingProgressBar.setVisibility(View.VISIBLE);
-
-            animation.setAnimationListener(new Animation.AnimationListener() {
-                @Override
-                public void onAnimationStart(Animation animation) {
-
-                }
-
-                @Override
-                public void onAnimationEnd(Animation animation) {
-                    if (isRequestFinished) {
-                        Toast.makeText(getBaseContext(), "Pode ir para outra tela!", Toast.LENGTH_LONG).show();
-                    }
-                }
-
-                @Override
-                public void onAnimationRepeat(Animation animation) {
-
-                }
-            });
-        }
-
-    }
-
-    private void registerBroadcast() {
-        this.requestFinishedEventReceiver = new BroadcastReceiver() {
+    private void registerEventBroadcastsReceiver() {
+        BroadcastReceiver request = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
                 isRequestFinished = true;
+
+                if (isProgressBarFinished) {
+                    Toast.makeText(context, "Pode ir para a outra tela", Toast.LENGTH_LONG).show();
+                }
             }
         };
+        registerReceiver(request, new IntentFilter(Constants.EVENT_REQUEST_FINISIHED));
 
-        registerReceiver(this.requestFinishedEventReceiver, new IntentFilter(Constants.EVENT_REQUEST_FINISIHED));
+        BroadcastReceiver progressBarAnimation = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                isProgressBarFinished = true;
+
+                if (isRequestFinished) {
+                    Toast.makeText(context, "Pode ir para a outra tela", Toast.LENGTH_LONG).show();
+                }
+            }
+        };
+        registerReceiver(progressBarAnimation, new IntentFilter(Constants.EVENT_SPLASH_SCREEN_FINISHED));
+
     }
 }

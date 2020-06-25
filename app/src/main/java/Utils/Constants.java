@@ -17,5 +17,6 @@ public class Constants {
     public static final String IMAGE_CHARACTER_NOT_FOUND    = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available";
 
     public static final String EVENT_REQUEST_FINISIHED = "EVENT_REQUEST_FINISHED";
+    public static final String EVENT_SPLASH_SCREEN_FINISHED = "EVENT_SPLASH_SCREEN_FINISHED";
 
 }
