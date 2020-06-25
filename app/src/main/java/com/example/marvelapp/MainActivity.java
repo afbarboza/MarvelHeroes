@@ -3,6 +3,10 @@ package com.example.marvelapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.animation.ObjectAnimator;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,10 +15,12 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import Controller.CallbackCharacterDataWrapper;
 import Networking.MarvelClient;
 import Model.CharacterDataWrapper;
+import Utils.Constants;
 import retrofit2.Call;
 
 public class MainActivity extends AppCompatActivity {
@@ -23,6 +29,9 @@ public class MainActivity extends AppCompatActivity {
     private TextView txtAppName;
     private ProgressBar loadingProgressBar;
     private ProgressBarThread progressBarThread;
+    private boolean isRequestFinished = false;
+    private BroadcastReceiver requestFinishedEventReceiver;
+    private Context context;
 
     private Call<CharacterDataWrapper> getAllCharacters;
 
@@ -33,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         this.txtAppName = findViewById(R.id.txtAppName);
         this.loadingProgressBar = findViewById(R.id.progressBar);
         initRetrofit();
+        registerBroadcast();
     }
 
     @Override
@@ -70,12 +80,12 @@ public class MainActivity extends AppCompatActivity {
 
     private void initRetrofit() {
         this.getAllCharacters = MarvelClient.getMarvelEndpointAPI().getAllCharacters();
-        this.getAllCharacters.enqueue(new CallbackCharacterDataWrapper(this));
+        this.getAllCharacters.enqueue(new CallbackCharacterDataWrapper(getBaseContext()));
     }
 
     private class ProgressBarThread extends AsyncTask<Void, Void, Void> {
-        private static final String TAG = "ProgressBarThread";
 
+        private static final String TAG = "ProgressBarThread";
         @Override
         protected Void doInBackground(Void... voids) {
             try {
@@ -92,7 +102,37 @@ public class MainActivity extends AppCompatActivity {
             animation.setDuration(500);
             loadingProgressBar.setAnimation(animation);
             loadingProgressBar.setVisibility(View.VISIBLE);
+
+            animation.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    if (isRequestFinished) {
+                        Toast.makeText(getBaseContext(), "Pode ir para outra tela!", Toast.LENGTH_LONG).show();
+                    }
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+            });
         }
+
     }
 
+    private void registerBroadcast() {
+        this.requestFinishedEventReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                isRequestFinished = true;
+            }
+        };
+
+        registerReceiver(this.requestFinishedEventReceiver, new IntentFilter(Constants.EVENT_REQUEST_FINISIHED));
+    }
 }

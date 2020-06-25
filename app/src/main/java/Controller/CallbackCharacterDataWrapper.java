@@ -2,13 +2,16 @@ package Controller;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 
 import java.util.List;
 
 import Model.Character;
+import Model.CharacterCollection;
 import Model.CharacterDataContainer;
 import Model.CharacterDataWrapper;
+import Utils.Constants;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -29,8 +32,11 @@ public class CallbackCharacterDataWrapper implements Callback<CharacterDataWrapp
         List<Character> allCharacters = characterDataContainer.getResults();
 
         for (Character c : allCharacters) {
-            Log.d(TAG, "onResponse: " + c.getName());
+            CharacterCollection.addNewCharacter(c);
         }
+
+        Intent i = new Intent(Constants.EVENT_REQUEST_FINISIHED);
+        context.sendBroadcast(i);
     }
 
     @Override
