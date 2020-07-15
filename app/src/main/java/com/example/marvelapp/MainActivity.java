@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
                 isRequestFinished = true;
 
                 if (isProgressBarFinished) {
-                    Toast.makeText(context, "Pode ir para a outra tela", Toast.LENGTH_LONG).show();
+                    launchGallery();
                 }
             }
         };
@@ -95,11 +95,16 @@ public class MainActivity extends AppCompatActivity {
                 isProgressBarFinished = true;
 
                 if (isRequestFinished) {
-                    Toast.makeText(context, "Pode ir para a outra tela", Toast.LENGTH_LONG).show();
+                    launchGallery();
                 }
             }
         };
         registerReceiver(progressBarAnimation, new IntentFilter(Constants.EVENT_SPLASH_SCREEN_FINISHED));
-
     }
+
+    private void launchGallery() {
+        Intent i = new Intent(getBaseContext(), HeroesGallery.class);
+        startActivity(i);
+    }
+
 }
