@@ -27,8 +27,6 @@ public class MainActivity extends AppCompatActivity {
     private ProgressBar loadingProgressBar;
     private SplashScreenSpinner progressBarThread;
 
-    private Call<CharacterDataWrapper> getAllCharacters;
-
     private boolean isRequestFinished = false;
     private boolean isProgressBarFinished = false;
 
@@ -37,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initViews();
-        initRetrofit();
+        MarvelClient.initRetrofit(getBaseContext());
         registerEventBroadcastsReceiver();
     }
 
@@ -76,11 +74,6 @@ public class MainActivity extends AppCompatActivity {
         this.txtAppName.startAnimation(animation);
 
         progressBarThread = new SplashScreenSpinner(this, loadingProgressBar);
-    }
-
-    private void initRetrofit() {
-        this.getAllCharacters = MarvelClient.getMarvelEndpointAPI().getAllCharacters();
-        this.getAllCharacters.enqueue(new CallbackCharacterDataWrapper(getBaseContext()));
     }
 
     private void registerEventBroadcastsReceiver() {

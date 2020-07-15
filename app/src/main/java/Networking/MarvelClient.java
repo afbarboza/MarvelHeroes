@@ -1,16 +1,22 @@
 package Networking;
 
+import android.content.Context;
+
+import Controller.CallbackCharacterDataWrapper;
+import Model.CharacterDataWrapper;
 import Utils.Constants;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
+import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MarvelClient {
     private static Retrofit retrofit;
     private static MarvelEndpointAPI marvelEndpointAPI;
+    private static Call<CharacterDataWrapper> getAllCharacters;
 
-    public  static MarvelEndpointAPI getMarvelEndpointAPI() {
+    private  static MarvelEndpointAPI getMarvelEndpointAPI() {
         if (marvelEndpointAPI == null) {
             Interceptor interceptor = new RequestInterceptor();
 
@@ -28,6 +34,11 @@ public class MarvelClient {
         }
 
         return marvelEndpointAPI;
+    }
+
+    public static void initRetrofit(Context context) {
+        getAllCharacters = MarvelClient.getMarvelEndpointAPI().getAllCharacters();
+        getAllCharacters.enqueue(new CallbackCharacterDataWrapper(context));
     }
 
 }
