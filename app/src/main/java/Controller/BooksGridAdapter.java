@@ -1,13 +1,19 @@
 package Controller;
 
 import android.content.Context;
-import android.graphics.Color;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.TextView;
+import android.widget.ImageView;
+
+import com.example.marvelapp.R;
+import com.squareup.picasso.Picasso;
 
 import Model.CharacterCollection;
+import Model.Image;
+import Utils.Constants;
 
 public class BooksGridAdapter extends BaseAdapter {
     private final Context mContext;
@@ -33,10 +39,22 @@ public class BooksGridAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        TextView txtHeroName = new TextView(mContext);
-        String heroName = CharacterCollection.getCharactersList().get(position).getName();
-        txtHeroName.setText(heroName);
-        txtHeroName.setTextColor(Color.parseColor("#000000"));
-        return txtHeroName;
+
+        String heroThumbnailUrl = "";
+        Image heroThumbnail =  CharacterCollection.getCharactersList().get(position).getThumbnail();
+
+        if (convertView == null) {
+            final LayoutInflater layoutInflater = LayoutInflater.from(mContext);
+            convertView = layoutInflater.inflate(R.layout.hero_thumbnail, null);
+        }
+
+        ImageView imgHeroThumbnail = convertView.findViewById(R.id.imgHeroThumbnail);
+        heroThumbnailUrl = heroThumbnail.getPath() + "/" + Constants.IMAGE_VARIANT_MEDIUM + "." + heroThumbnail.getExtension();
+
+        Picasso.get()
+                .load(heroThumbnailUrl)
+                .into(imgHeroThumbnail);
+
+        return convertView;
     }
 }

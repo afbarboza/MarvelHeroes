@@ -9,9 +9,14 @@ public class CharacterCollection {
     private static ArrayList<Character> charactersList;
 
     public static void addNewCharacter(Character character) {
-        if (character == null || character.getThumbnail().getPath() == Constants.IMAGE_CHARACTER_NOT_FOUND) {
+        if (character == null) {
             return;
         }
+
+        if (character.getThumbnail().getPath().contains(Constants.IMAGE_CHARACTER_NOT_FOUND)) {
+            return;
+        }
+
         initCollection();
         charactersList.add(character);
     }
