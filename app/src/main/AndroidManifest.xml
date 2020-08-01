@@ -12,7 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".HeroesGallery"
-            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:screenOrientation="portrait" />
+
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait"
